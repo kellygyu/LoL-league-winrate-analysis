@@ -28,7 +28,7 @@ The dataset we will be using will be from Oracle's Elixir. The dataset itself co
 For our analysis, we will only focus on the columns defined below. All other columns are not as relevant for our needs and will be discarded.
 
 | Column Name | Description |
-|: ----------- :|: ----------- :|
+|:-----------:|:-----------:|
 | gameid | id corresponding the played match |
 | league | the tournament name |
 | result | True if team win False if loss |
@@ -44,7 +44,7 @@ For our analysis, we will only focus on the columns defined below. All other col
 Additionally, we will use two calculated columns we defined.
 
 | Column Name | Description |
-|: ----------- :|: ----------- :|
+|:-----------:|:-----------:|
 | kda | [(kills + assists)/deaths] which is a performance metric |
 | meta | true if a champion is heavily banned false if not |
 
