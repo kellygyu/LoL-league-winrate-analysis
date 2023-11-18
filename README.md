@@ -241,7 +241,7 @@ We can see from the missing and not missing columns that the distribution of `"l
 **Null Hypothesis:** The missingess of `"goldat10"` does not depend on `"league"` 
 **Alternative Hypothesis:** The missingess of `"goldat10"` depends on `"league"` 
 
-Our results are as listed:
+**Our results are as listed:**
 
 | Statistic | Value |
 |:----------:|:------------------:|
@@ -299,7 +299,7 @@ The two distributions of kills seems similar between ban1 missing and not missin
 **Alternative Hypothesis:** The missingess of `"ban1"` depends on `"kills"` 
 
 
-Our results are as follows:
+**Our results are as follows:**
 
 | Statistic | Value |
 |:----------:|:------------------:|
@@ -311,4 +311,49 @@ The corresponding empirical total variation distance distribution:
 
 <iframe src="charts/non_dep.html" width=800 height=600 frameBorder=0></iframe>
 
-From our test, our p-value is 0.452, hence we fail to reject the null. We can conclude that it is highly possible that the missingness of column "ban1" is not dependent on "kills". This is likely as bans occur before the game even starts, hence the amount of kills a player gets in game should not affect the chances of bans being missing. 
+From our test, our p-value is 0.452, hence we fail to reject the null. We can conclude that it is highly possible that the missingness of column `"ban1"` is not dependent on `"kills"`. This is likely as bans occur before the game even starts, hence the amount of kills a player gets in game should not affect the chances of bans being missing. 
+
+
+## Hypothesis Testing
+
+Now that we assessed the possibilities of missing data within the bigger dataset, we can revert back to studying whether popularly banned champions tend to have higher win rates and performance compared to the rest of the champion pool. We will conduct two different permutation tests to test whether `"meta"` positively affects `"result"` and `"performance"`.
+
+### `meta` on `result`
+
+**Null Hypothesis**: Meta champions have the same winrate as other champions.
+
+**Alternative Hypothesis**: Meta champions have a higher winrate compared to other champions.
+
+**Type of Test**: One-sided permutation test with 10,000 simulations
+
+**Test Statistic**: Difference in Means statistic for `"result"`.
+
+**Significance Level**: 0.05, the base level for most hypothesis tests.
+
+**Results**
+Our test resulted in a p-value of 0.00, hence we will reject the null hypothesis. 
+
+<iframe src="charts/win_md.html" width=800 height=600 frameBorder=0></iframe>
+
+
+### `meta` on `kda`
+
+**Null Hypothesis**: Meta champions have the same kda as other champions.
+
+**Alternative Hypothesis**: Meta champions have a higher kda compared to compared to other champions.
+
+**Type of Test**: One-sided permutation test with 10,000 simulations
+
+**Test Statistic**: Difference in Means statistic for `"kda"`.
+
+**Significance Level**: 0.05, the base level for most hypothesis tests.
+
+**Results**
+Our second test also resulted in a p-value of 0.00, hence we will reject the null hypothesis. 
+
+<iframe src="charts/kda_md.html" width=800 height=600 frameBorder=0></iframe>
+
+### Conclusion
+
+From both our tests, we reject the null hypothesis, as our p-value, 0.0 is less than our significance level. We can conclude that our dataset shows there is a statistically significant difference between meta champions' and non-meta champions' winrate (`result`) and performance in game (`kda`). However, we have to keep in mind we cannot conclude casuation from these tests as this is not experimental data. We can only conclude there is only a trend between `meta` and our metrics `result` and `kda`.
+
