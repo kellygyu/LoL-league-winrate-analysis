@@ -1,7 +1,3 @@
-# Are Meta Champions Truly Broken?
-### A League of Legends - Banned Champions Performance & Win Rate Analysis
-
-
 ## Project Overview
 The following project was completed for DSC80 at UCSD. This project aims to investigate the difference in winrate and performance of heavily banned champions vs other champions within league of legends tournaments.
 
@@ -136,7 +132,9 @@ From our univariate analysis, we see that KDA is an extremely skewed distributio
 
 <iframe src="charts/boxplot.html" width=800 height=600 frameBorder=0></iframe>
 
- From our boxplots, we see that mid and bot players have a larger box size, and the median kda is higher than all other roles. This reflects the general playstyle of these roles. In league of legends, bot and mid players tend to be the "carry" roles of the game. The champions often played in these roles are consistent damage dealers such as asassians, mages, and gunsmans/archers, while for other roles such as top, they tend to be tankier champions, which aim to take damage, or help intiate fights. Hence, we see that roles such as support and top, tend to have a smaller 25th - 75th quantile compared to carry roles such as mid and bot. Bot has the largest 25th - 75th quantile spread as bot is an extremely important role within the game. Teams will typically aim to camp or kill carry players (ie: bot) as much as possible to put these players behind in the game so that they will be less of a threat to the enemy team. On the other hand, if a bot player is able to play their role out and get ahead of their opponents, these players will end up 'snowballing' -- essentially dominating the game. Hence bot players will have a larger kda spread because of these situations. 
+ From our boxplots, we see that mid and bot players have a larger box size, and the median kda is higher than all other roles. This reflects the general playstyle of these roles. In league of legends, bot and mid players tend to be the "carry" roles of the game. The champions often played in these roles are consistent damage dealers such as asassians, mages, and gunsmans/archers, while for other roles such as top, they tend to be tankier champions, which aim to take damage, or help intiate fights. 
+ 
+ Hence, we see that roles such as support and top, tend to have a smaller 25th - 75th quantile compared to carry roles such as mid and bot. Bot has the largest 25th - 75th quantile spread as bot is an extremely important role within the game. Teams will typically aim to camp or kill carry players (ie: bot) as much as possible to put these players behind in the game so that they will be less of a threat to the enemy team. On the other hand, if a bot player is able to play their role out and get ahead of their opponents, these players will end up 'snowballing' -- essentially dominating the game. Therefore bot players will have a larger kda spread because of these situations. 
 
  There is a lot more we can infer about player roles and performance from this chart, but for the sake of keeping this analysis portion simple and not getting to far into game specific details, we will move on.
 
