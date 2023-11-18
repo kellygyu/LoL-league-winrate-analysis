@@ -59,8 +59,16 @@ As our dataset contains a lot of extra columns, we will first drop all the colum
 
 As defined in our jargon, meta refers to the popularity status of a champion. Here, we will use the term `"meta"` as a reference to whether a champion is popularly banned. As there are 152 champions in League of Legends, if we take all champions as equal/fair, each champion would techinally have about a 1/152 chance of getting banned. As there can be up to 10 bans per game, the chance of a certain champion being banned within one game is 1 - (151/152) x (150/151) x ... (142/143), which is 5/76 or about 6.6% chance of getting banned. 
 
-Hence, using this probability as a baseline, let's define a champion to be `"meta"` (banned a lot) if their ban rate is larger than 15%, about double the fair chance of a champion being banned. 15% is high for a champion if they are being banned in at least 15% of professional tourament matches given there are 152 other champions that could also be banned. Using this definition, we will create the `"meta"` column
+Hence, using this probability as a baseline, let's define a champion to be `"meta"` (banned a lot) if their ban rate is larger than 15%, about double the fair chance of a champion being banned. 15% is high for a champion if they are being banned in at least 15% of professional tourament matches given there are 152 other champions that could also be banned. Using this definition, we will find the `"meta"` champions. 
 
+
+Here is the `"meta"` list of champions we found after taking a look at the ban rates of all champions.
+
+`['Zeri', 'Gwen', 'LeBlanc', 'Lucian', 'Ahri', 'Kalista', 'Wukong', 'Akali', 'Yuumi', 'Caitlyn', 'Sylas', 'Renata Glasc', 'Lee Sin', 'Karma', 'Nautilus', 'Taliyah', 'Gangplank', 'Corki', 'Azir', 'Camille']`
+
+As a league player myself, taking a quick glance at this ban list, we seem to have quite a good spread of champions from all positions, about 3-6 champions per each position (as some of these champions could be flexed onto other positions).
+
+Hence, let's use this list to create the `"meta"` boolean column.
 
 **Defining `"kda"`**
 
@@ -84,7 +92,7 @@ After some additional filtering conducted after univariate & bivariate analysis,
 
 With our cleaned data, we can finally take a look at some overall distributions within our dataset. To begin, we can look at the distribution of kills and KD/A scores per player.
 
-*Distribution of Kills* 
+**Distribution of Kills** 
 
 Kills make up a important part of our kda metric, hence we will visualize how many kills players often get per game of League of Legends.
 
@@ -93,7 +101,7 @@ Kills make up a important part of our kda metric, hence we will visualize how ma
 
 As expected, the kills distribution is right skewed. This is likely due to the fact that in professional tournaments, all players are in the top 0.01% of players in the world. All players have a full understanding of how League of Legends is meant to be played, meaning any small mistake, such as a death, could win or break a game. Therefore, because all players play extremely careful, there will be few instances of players getting large amounts of kills within a game, hence the explaination for right skewness we see in the distribution.
 
-*KDA Distribution*
+**KDA Distribution**
 
 As kills only make up one part of our performance metric, let us take a look at the overall performance of a player per game. 
 
@@ -101,8 +109,141 @@ As kills only make up one part of our performance metric, let us take a look at 
 
 Similarly, we see the same right skew that was present in the kills distribution. By similar logic as kills, it will be hard to find players that do extremely well in games, hence the right skewness we see in the distribution. Interestingly enough, is that because we now account for assists in addition to kills, we see that kda has a larger spread compared to just kills by themselves. One more point to note is that because kda is a caluclated metric based off of integer values, we see a lot of 0 heigh bars within our graph as some values cannot appear from interger division. Taking a look at the values itself, we can generally say that most players have a kda around 1-5, which indicates good performance within a game.
 
-*Further Filtering*
+**Further Filtering**
 
 After observing these distributions, to keep our data consistent, we will drop data where kda is higher than 20. This is because it is extremely hard to not die or only die once in a professional match. If such instances happen, we see extremely high kdas within our dataset, which we do in the distribution. Hence, we will remove these potential outlier instances. This leaves us with 12101 games we can observe for our dataset. You can see the head of the dataframe in the **Data Cleaning** section above.
 
+
 ### Bivariate Analysis
+
+**Meta vs Non-Meta Win Rate**
+
+For this section, we will compare the winrate of champions by whether they are classified as heavily banned or not. We will use columns `"result"` and `"meta"` for this comparision.
+
+
+<iframe src="charts/meta_win_dist.html" width=800 height=600 frameBorder=0></iframe>
+
+This bar chart shows the percentage of wins by whether a champion is classified as `"meta"` (heavily banned champion) or not. From the bar plots, it seems that champions who have a high ban rate tend to have a higher win rate compared to other champions -- by about 0.03 to be more exact. We will view the aggregrate data in a later section to investigate further.
+
+
+**KDA by Role**
+From our univariate analysis, we see that KDA is an extremely skewed distribution. This brings us to question, do player `"positions"` have an effect on KDA? To understand the extent of the player role on our performance metric, kda, we can use boxplots to visualize the distribution of kda per different player positions. If we observe the boxplot, we can observe common trends of different role responsbilities.
+
+
+<iframe src="charts/boxplot.html" width=800 height=600 frameBorder=0></iframe>
+
+ From our boxplots, we see that mid and bot players have a larger box size, and the median kda is higher than all other roles. This reflects the general playstyle of these roles. In league of legends, bot and mid players tend to be the "carry" roles of the game. The champions often played in these roles are consistent damage dealers such as asassians, mages, and gunsmans/archers, while for other roles such as top, they tend to be tankier champions, which aim to take damage, or help intiate fights. Hence, we see that roles such as support and top, tend to have a smaller 25th - 75th quantile compared to carry roles such as mid and bot. Bot has the largest 25th - 75th quantile spread as bot is an extremely important role within the game. Teams will typically aim to camp or kill carry players (ie: bot) as much as possible to put these players behind in the game so that they will be less of a threat to the enemy team. On the other hand, if a bot player is able to play their role out and get ahead of their opponents, these players will end up 'snowballing' -- essentially dominating the game. Hence bot players will have a larger kda spread because of these situations. 
+
+ There is a lot more we can infer about player roles and performance from this chart, but for the sake of keeping this analysis portion simple and not getting to far into game specific details, we will move on.
+
+
+ ### Interesting Aggregrates
+
+ As mentioned earlier in the bivariate analysis about meta vs non-meta win rates, this `groupby()` chart shows us the statistics behind meta vs non-meta champions. 
+
+ | meta   |   count |   result |   kills |   deaths |   assists |     kda |
+|:-------|--------:|---------:|--------:|---------:|----------:|--------:|
+| False  |   74657 | 0.434494 | 2.67675 |  3.29798 |   6.25052 | 4.14552 |
+| True   |   32600 | 0.456748 | 2.90426 |  3.19387 |   6.23767 | 4.39084 |
+
+
+ We see that on average, meta champions have a have a higher winrate than non-meta champions. Additionally, we see the average amount of kills is higher, alongside a lower amount of average deaths. This is reflected as well on our kda calcualtion, displaying a 0.25 kda gap between meta and non-meta champions. Interestingly enough, the average number of assists for non-meta champions is slightly higher than meta champions. We will contiune to break this data down a bit further by observing meta champions statistics within specific player positions.
+
+
+ | position   | meta   |   count |   winrate |    kills |   deaths |   assists |     kda |
+|:-----------|:-------|--------:|----------:|---------:|---------:|----------:|--------:|
+| bot        | False  |   16218 |  0.416574 | 3.90165  |  2.97996 |   5.19731 | 4.57961 |
+| bot        | True   |    4525 |  0.454586 | 4.50541  |  2.88862 |   5.06387 | 4.96331 |
+| jng        | False  |   16791 |  0.433923 | 2.85474  |  3.50664 |   6.60437 | 4.17357 |
+| jng        | True   |    4905 |  0.479715 | 3.09867  |  3.29684 |   6.67339 | 4.60127 |
+| mid        | False  |   11365 |  0.424901 | 3.15205  |  3.15952 |   5.88218 | 4.32954 |
+| mid        | True   |    9702 |  0.442383 | 3.5269   |  2.89322 |   5.37683 | 4.63536 |
+| sup        | False  |   14153 |  0.458207 | 0.86434  |  3.54907 |   8.83657 | 4.17355 |
+| sup        | True   |    7816 |  0.44652  | 0.809493 |  3.60427 |   8.80514 | 4.17271 |
+| top        | False  |   16130 |  0.439058 | 2.51525  |  3.27774 |   4.93156 | 3.52563 |
+| top        | True   |    5652 |  0.477353 | 3.28167  |  3.29742 |   4.72647 | 3.63179 |
+
+Looking at the above position by meta champion `groupby()`, we can see that meta champions tend to have a higher winrate for all positions except support. Additionally, it seems that on average meta support champions do worse than their counterparts. This is extremely interesting given that these champions are heavily banned, usually due to their skillsets being extremely good for teamfights, or champion statistics are extremely good. Because of this, we should've expected to see meta supports either having higher kills or assists compared to non-meta supports. There is no proper explaination for this finding, we can only confirm it with more data and further tests. We unfortunately will not be looking into this case for this project.
+
+
+## Assessment of Missingness
+
+### NMAR Analysis
+
+A lot of the columns within our dataset seemed to have missing data. I'd believe quite a few of these columns likely have NMAR data as well. For example, in the data taken from specific leagues (ex: DCup (2022 Demacia cup) in Asia) there multiple columns of data such as `"goldat15"` and `"xpat15"` which are null. This makes sense as some tournaments might simply not have the tools/means to record this data, or will only record this data for important matches, such as quarterfinals/finals. That means for games such as playoffs, many of these playoff games are conducted at once and there might not be enough resources to collect these datapoints for all thes games. Additionally for smaller tournaments, officials might also choose to not record this data due to a belief that these tournamentss are less significant compared to larger ones, and that there might be not much to learn from collecting this data. Hence, columns such as `"goldat15"` and `"xpat15"` are NMAR as the missingness can depend on the type of match the data is from, or also the tournament the match data is from.
+
+To change our this missingess from NMAR to MAR, we can just collect the data that was missing from the matches by watching the VODs/videos and recording down the missing metrics that leagues/touraments might have not recorded. This will change the data so that the missingness is only dependent on the duration of the game (missing if a game ends before 15 minutes) and not dependent on match or tournament not recording the data.
+
+
+### Missing Dependency
+
+In this section we will investigate the dependency of `"goldat10"` on `"league"` and verify if the missing values of `"goldat10"` is influenced by the `"league"` the match data came from.
+
+There are 18190 missing goldat10 values out of 121010 rows. Here is the distribution of league when `"goldat10"` is missing and not missing.
+
+| league     |   goldat10_not_missing |   goldat10_missing |
+|:-----------|-----------------------:|-------------------:|
+| CBLOL      |             0.0236335  |         0          |
+| CBLOLA     |             0.0210076  |         0          |
+| CDF        |             0.00709979 |         0          |
+| CT         |             0.00252869 |         0          |
+| DCup       |             0          |         0.042331   |
+| DDH        |             0.020035   |         0          |
+| EBL        |             0.0156584  |         0          |
+| EL         |             0.012838   |         0          |
+| ESLOL      |             0.0214939  |         0          |
+| EUM        |             0.0259677  |         0          |
+| GL         |             0.0152694  |         0          |
+| GLL        |             0.0180899  |         0          |
+| HC         |             0.0157557  |         0          |
+| HM         |             0.0140051  |         0          |
+| IC         |             0.0072943  |         0          |
+| LAS        |             0.0220774  |         0          |
+| LCK        |             0.0454192  |         0          |
+| LCKC       |             0.0383194  |         0          |
+| LCL        |             0.00155612 |         0          |
+| LCO        |             0.0206186  |         0          |
+| LCS        |             0.0297607  |         0          |
+| LCSA       |             0.052519   |         0          |
+| LDL        |             0          |         0.517867   |
+| LEC        |             0.0236335  |         0          |
+| LFL        |             0.0221747  |         0          |
+| LFL2       |             0.0216884  |         0          |
+| LHE        |             0.0232445  |         0          |
+| LJL        |             0.0208131  |         0          |
+| LJLA       |             0.00369578 |         0          |
+| LLA        |             0.0175063  |         0          |
+| LMF        |             0.0304415  |         0          |
+| LPL        |             0          |         0.432106   |
+| LPLOL      |             0.0186734  |         0          |
+| LVP SL     |             0.0218829  |         0          |
+| MSI        |             0.00778059 |         0          |
+| NEXO       |             0.0112819  |         0          |
+| NLC        |             0.0354017  |         0          |
+| PCS        |             0.0263567  |         0          |
+| PGC        |             0.0546586  |         0          |
+| PGN        |             0.0135188  |         0          |
+| PRM        |             0.0344291  |         0          |
+| SL (LATAM) |             0.0149776  |         0          |
+| TAL        |             0.0199378  |         0          |
+| TCL        |             0.0214939  |         0          |
+| UL         |             0.0250924  |         0          |
+| UPL        |             0.04007    |         0          |
+| VCS        |             0.0314141  |         0          |
+| VL         |             0.0151721  |         0          |
+| WLDs       |             0.0137133  |         0.00769654 |
+
+
+We can see from the missing and not missing columns that the distribution of split is not at all similar. Hence, we will run a permutation test with 1000 reps using TVD to confirm this finding.
+
+Our results are as listed:
+
+| Statistic | Value |
+|:----------:|:------------------:|
+| significance level | 0.05 |
+| p-value | 0.00 |
+| observed TVD| 0.99|
+
+The corresponding empirical total variation distance distribution:
+
+<iframe src="charts/mis_dep.html" width=800 height=600 frameBorder=0></iframe>
