@@ -42,7 +42,9 @@ For our analysis, we will only focus on the columns defined below. All other col
 | ban1 ... ban5| the champion banned within a match|
 | goldat10 | the gold a player or team has 10 minutes into the game |
 
+
 Additionally, we will use two calculated columns we defined.
+
 
 | Column Name | Description |
 |:-----------:|:-----------:|
