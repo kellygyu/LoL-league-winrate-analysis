@@ -1,3 +1,5 @@
+# Are Meta Champions Truly Broken?
+
 ## Project Overview
 The following project was completed for DSC80 at UCSD. This project aims to investigate the difference in winrate and performance of heavily banned champions vs other champions within league of legends tournaments.
 
@@ -7,7 +9,7 @@ The following project was completed for DSC80 at UCSD. This project aims to inve
 Throughout this project, I will be using some jargon particular to League of Legends. I have included a short description of what each word means below for better understanding. 
 
 | Jargon | Definition |
-|: ----------- :|: ----------- :|
+|:-----------:|:-----------:|
 | Champion | characters you play as in game |
 | Meta | describes whether a champion is popular |
 | KDA | calculated metric that describes a player's performance in game base off kills, deaths, and assists|
@@ -89,7 +91,7 @@ After some additional filtering conducted after univariate & bivariate analysis,
 
 ### Univariate Analysis
 
-With our cleaned data, we can finally take a look at some overall distributions within our dataset. To begin, we can look at the distribution of kills and KD/A scores per player.
+With our cleaned data, we can finally take a look at some overall distributions within our dataset. To begin, we can look at the distribution of kills and KDA scores per player.
 
 **Distribution of Kills** 
 
