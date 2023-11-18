@@ -53,7 +53,7 @@ Additionally, we will use two calculated columns we defined.
 
 ### Data Cleaning
 
-As our dataset contains a lot of extra columns, we will first drop all the columns that won't be used for our analysis. Additionally, the 2022 dataset we downloaded contains some matches from 2023 preseason, hence we will also drop any match data with the "year" 2023. After removing these matches, we have a total of 12101 rows. Our next steps will be to create new columns to measure performance and determine whether a champion is heavily banned or not. We define these columns to be "meta" and "kda". 
+As our dataset contains a lot of extra columns, we will first drop all the columns that won't be used for our analysis. Additionally, the 2022 dataset we downloaded contains some matches from 2023 preseason, hence we will also drop any match data with the "year" 2023. After removing these matches, we have a total of 12101 rows. We will also conver the `"result"` column to boolean type. Our next steps will be to create new columns to measure performance and determine whether a champion is heavily banned or not. We define these columns to be "meta" and "kda". 
 
 **Defining `"Meta"`**
 
@@ -78,4 +78,31 @@ After some additional filtering conducted after univariate & bivariate analysis,
 | ESPORTSTMNT01_2690210 | LCKC     |   2022 | False    | bot        | Samira     |       2 |        4 |         2 | False  | 1       |
 | ESPORTSTMNT01_2690210 | LCKC     |   2022 | False    | sup        | Leona      |       1 |        5 |         6 | False  | 1.4     |
 
+
+
+### Univariate Analysis
+
+With our cleaned data, we can finally take a look at some overall distributions within our dataset. To begin, we can look at the distribution of kills and KD/A scores per player.
+
+*Distribution of Kills* 
+
+Kills make up a important part of our kda metric, hence we will visualize how many kills players often get per game of League of Legends.
+
+
 <iframe src="charts/kills_dist.html" width=800 height=600 frameBorder=0></iframe>
+
+As expected, the kills distribution is right skewed. This is likely due to the fact that in professional tournaments, all players are in the top 0.01% of players in the world. All players have a full understanding of how League of Legends is meant to be played, meaning any small mistake, such as a death, could win or break a game. Therefore, because all players play extremely careful, there will be few instances of players getting large amounts of kills within a game, hence the explaination for right skewness we see in the distribution.
+
+*KDA Distribution*
+
+As kills only make up one part of our performance metric, let us take a look at the overall performance of a player per game. 
+
+<iframe src="charts/kda_dist.html" width=800 height=600 frameBorder=0></iframe>
+
+Similarly, we see the same right skew that was present in the kills distribution. By similar logic as kills, it will be hard to find players that do extremely well in games, hence the right skewness we see in the distribution. Interestingly enough, is that because we now account for assists in addition to kills, we see that kda has a larger spread compared to just kills by themselves. One more point to note is that because kda is a caluclated metric based off of integer values, we see a lot of 0 heigh bars within our graph as some values cannot appear from interger division. Taking a look at the values itself, we can generally say that most players have a kda around 1-5, which indicates good performance within a game.
+
+*Further Filtering*
+
+After observing these distributions, to keep our data consistent, we will drop data where kda is higher than 20. This is because it is extremely hard to not die or only die once in a professional match. If such instances happen, we see extremely high kdas within our dataset, which we do in the distribution. Hence, we will remove these potential outlier instances. This leaves us with 12101 games we can observe for our dataset. You can see the head of the dataframe in the **Data Cleaning** section above.
+
+### Bivariate Analysis
