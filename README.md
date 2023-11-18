@@ -91,7 +91,7 @@ After some additional filtering conducted after univariate & bivariate analysis,
 
 ### Univariate Analysis
 
-With our cleaned data, we can finally take a look at some overall distributions within our dataset. To begin, we can look at the distribution of kills and KD/A scores per player.
+With our cleaned data, we can finally take a look at some overall distributions within our dataset. To begin, we can look at the distribution of kills and KDA scores per player.
 
 **Distribution of Kills** 
 
