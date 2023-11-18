@@ -1,4 +1,5 @@
-# League of Legends - Banned Champions Performance & Win Rate Analysis
+# Are Meta Champions Truly Broken?
+### A League of Legends - Banned Champions Performance & Win Rate Analysis
 
 
 ## Project Overview
@@ -7,7 +8,7 @@ The following project was completed for DSC80 at UCSD. This project aims to inve
 **Author**: Kelly Yu
 
 ## Jargon Definitions
-Throughout this project, I will be using a lot of jargon particular to League of Legends. I have included a short description of what each word means below for better understanding. 
+Throughout this project, I will be using some jargon particular to League of Legends. I have included a short description of what each word means below for better understanding. 
 
 | Jargon | Definition |
 |: ----------- :|: ----------- :|
@@ -39,7 +40,7 @@ For our analysis, we will only focus on the columns defined below. All other col
 | deaths | number of times a player has died |
 | assists | number of times a player assisted in killing an opponent |
 | ban1 ... ban5| the champion banned within a match|
-| goldat10 | the gold a player/team has 10 minutes into the game |
+| goldat10 | the gold a player or team has 10 minutes into the game |
 
 Additionally, we will use two calculated columns we defined.
 
