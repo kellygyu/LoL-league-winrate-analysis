@@ -138,7 +138,7 @@ From our univariate analysis, we see that KDA is an extremely skewed distributio
  There is a lot more we can infer about player roles and performance from this chart, but for the sake of keeping this analysis portion simple and not getting to far into game specific details, we will move on.
 
 
- ### Interesting Aggregrates
+### Interesting Aggregrates
 
  As mentioned earlier in the bivariate analysis about meta vs non-meta win rates, this `groupby()` chart shows us the statistics behind meta vs non-meta champions. 
 
