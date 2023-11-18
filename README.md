@@ -179,7 +179,9 @@ To change our this missingess from NMAR to MAR, we can just collect the data tha
 
 In this section we will investigate the dependency of `"goldat10"` on `"league"` and verify if the missing values of `"goldat10"` is influenced by the `"league"` the match data came from.
 
-There are 18190 missing goldat10 values out of 121010 rows. Here is the distribution of league when `"goldat10"` is missing and not missing.
+There are 18190 missing goldat10 values out of 121010 rows. 
+
+Here is the distribution of `"league"` when `"goldat10"` is missing and not missing.
 
 | league     |   goldat10_not_missing |   goldat10_missing |
 |:-----------|-----------------------:|-------------------:|
@@ -234,7 +236,10 @@ There are 18190 missing goldat10 values out of 121010 rows. Here is the distribu
 | WLDs       |             0.0137133  |         0.00769654 |
 
 
-We can see from the missing and not missing columns that the distribution of split is not at all similar. Hence, we will run a permutation test with 1000 reps using TVD to confirm this finding.
+We can see from the missing and not missing columns that the distribution of `"league"` varies greatly. Hence, we will run a permutation test with 1000 reps using Total Variation Distance (TVD) to confirm this finding.
+
+**Null Hypothesis:** The missingess of `"goldat10"` does not depend on `"league"` 
+**Alternative Hypothesis:** The missingess of `"goldat10"` depends on `"league"` 
 
 Our results are as listed:
 
@@ -247,3 +252,63 @@ Our results are as listed:
 The corresponding empirical total variation distance distribution:
 
 <iframe src="charts/mis_dep.html" width=800 height=600 frameBorder=0></iframe>
+
+Based off our test, our p-value is 0.00, hence we will reject the null. We can conclude that thers is a high chance that the missingness of `"goldat10"` is dependent on `"league"`. This makes sense as some leagues, may simply decide to not track these stats, or only track them for certain matches (ie: finals).
+
+
+### Missingness Non-Dependency
+
+In this section, we will investigate if the number of kills that a player gets in a game affects the missingness of 'ban1'. 
+
+There are 1905 missing ban1 values out of 121010 rows.
+
+|   kills |   ban1_not_missing |   ban1_missing |
+|--------:|-------------------:|---------------:|
+|       0 |        0.190949    |    0.192651    |
+|       1 |        0.197255    |    0.198425    |
+|       2 |        0.159792    |    0.16063     |
+|       3 |        0.123311    |    0.111811    |
+|       4 |        0.0951513   |    0.0871391   |
+|       5 |        0.0712397   |    0.0661417   |
+|       6 |        0.0532471   |    0.0535433   |
+|       7 |        0.037278    |    0.048294    |
+|       8 |        0.0264305   |    0.0225722   |
+|       9 |        0.017111    |    0.0225722   |
+|      10 |        0.0112674   |    0.0125984   |
+|      11 |        0.00666639  |    0.0104987   |
+|      12 |        0.00451702  |    0.00577428  |
+|      13 |        0.00247681  |    0.00367454  |
+|      14 |        0.00140212  |    0.00209974  |
+|      15 |        0.00070526  |    0.000524934 |
+|      16 |        0.000503757 |    0.000524934 |
+|      17 |        0.000251879 |    0.000524934 |
+|      18 |        0.000125939 |    0           |
+|      19 |        0.000151127 |    0           |
+|      20 |        6.71676e-05 |    0           |
+|      21 |        2.51879e-05 |    0           |
+|      22 |        2.51879e-05 |    0           |
+|      23 |        8.39595e-06 |    0           |
+|      24 |        1.67919e-05 |    0           |
+|      25 |        8.39595e-06 |    0           |
+|      27 |        8.39595e-06 |    0           |
+|      28 |        8.39595e-06 |    0           |
+
+The two distributions of kills seems similar between ban1 missing and not missing. We will run a permutation test to confirm this finding.
+
+**Null Hypothesis:** The missingess of `"ban1"` does not depend on `"kills"` 
+**Alternative Hypothesis:** The missingess of `"ban1"` depends on `"kills"` 
+
+
+Our results are as follows:
+
+| Statistic | Value |
+|:----------:|:------------------:|
+| significance level | 0.05 |
+| p-value | 0.453 |
+| observed TVD| 0.03|
+
+The corresponding empirical total variation distance distribution:
+
+<iframe src="charts/non_dep.html" width=800 height=600 frameBorder=0></iframe>
+
+From our test, our p-value is 0.452, hence we fail to reject the null. We can conclude that it is highly possible that the missingness of column "ban1" is not dependent on "kills". This is likely as bans occur before the game even starts, hence the amount of kills a player gets in game should not affect the chances of bans being missing. 
