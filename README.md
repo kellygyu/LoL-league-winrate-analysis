@@ -22,7 +22,7 @@ With each season, we tend to see the same champions being banned in profession l
 ### Dataset Explaination
 The dataset we will be using will be from Oracle's Elixir. The dataset itself contains League Esports data from 2022 and 2023, however we will be filtering out data from 2023 to only focus on competitive that occured in 2022. The overall dataset has a total of 123 columns. After filtering and cleaning, our final dataset for hypothesis tests has a total of 107257 rows, and 11 columns. For Missing Data investigations, we will be using subsets of the original dataframe, at 121010 rows and 4 columns.
 
-**Column Focus/Descriptions**
+**Column Focus and Descriptions**
 
 For our analysis, we will only focus on the columns defined below. All other columns are not as relevant for our needs and will be discarded.
 
