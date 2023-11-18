@@ -320,7 +320,7 @@ From our test, our p-value is 0.452, hence we fail to reject the null. We can co
 
 Now that we assessed the possibilities of missing data within the bigger dataset, we can revert back to studying whether popularly banned champions tend to have higher win rates and performance compared to the rest of the champion pool. We will conduct two different permutation tests to test whether `"meta"` positively affects `"result"` and `"performance"`.
 
-### `meta` on `result`
+### "meta" on "result"
 
 **Null Hypothesis**: Meta champions have the same winrate as other champions.
 
@@ -338,7 +338,7 @@ Our test resulted in a p-value of 0.00, hence we will reject the null hypothesis
 <iframe src="charts/win_md.html" width=800 height=600 frameBorder=0></iframe>
 
 
-### `meta` on `kda`
+### "meta" on "kda"
 
 **Null Hypothesis**: Meta champions have the same kda as other champions.
 
